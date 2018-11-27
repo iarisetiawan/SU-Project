@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Step Up | Pesan</title>
+    <title>Step Up | Konsultasi</title>
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/slider.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/landingPage.css">
@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/chat-page.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/reset.min.css">
     <link href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/berbagi.css">
       <link rel="icon" type="image/png" href="<?php echo base_url();?>assets/img/logo.png">
+
 
 </head>
 
@@ -68,7 +70,6 @@
             </div>
         </div>
     </nav>
-
     <section class="col-md-12" id="chatSection" style="margin-top: 15vh">
         <div id="frame">
             <div id="sidepanel">
@@ -117,6 +118,7 @@
                     <input type="hidden" id="base_url" value="<?=base_url().'C_Chat/send_text_message' ?>">
                     <input type="hidden" id="history_url" value="<?=base_url().'C_Chat/get_chat_history' ?>">
                     <input type="hidden" id="cekurl" value="<?=base_url().'C_Kata/cekTeks' ?>">
+
 
                     <div class="wrap">
                         <input type="hidden" id="Sender_Name" value="<?=$user['nama_lengkap'];?>">
