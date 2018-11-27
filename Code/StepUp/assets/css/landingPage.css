@@ -1,0 +1,106 @@
+body{
+     font-family: 'Roboto Condensed', sans-serif;
+}
+ #navbar{
+     background-color: #fff;
+     color: black;
+}
+ #navbar-content a{
+     color: grey;
+}
+ #navbar-content a:hover{
+     color: #00AAE5;
+}
+ .navbar-brand{
+     padding-right: 50px;
+}
+ section {
+     padding: 60px 0px 20px 0px;
+}
+ section .section-title {
+     text-align: center;
+     color: #007b5e;
+     margin-bottom: 50px;
+     text-transform: uppercase;
+}
+ #footer {
+     background: #273c75 !important;
+}
+ #footer h5{
+     padding-left: 10px;
+     border-left: 3px solid #eeeeee;
+     padding-bottom: 6px;
+     margin-bottom: 20px;
+     color:#ffffff;
+}
+ #footer a {
+     color: #ffffff;
+     text-decoration: none !important;
+     background-color: transparent;
+     -webkit-text-decoration-skip: objects;
+}
+ #footer ul.quick-links li{
+     padding: 3px 0;
+     -webkit-transition: .5s all ease;
+     -moz-transition: .5s all ease;
+     transition: .5s all ease;
+}
+ #footer ul.quick-links li:hover{
+     padding: 3px 0;
+     margin-left:5px;
+     font-weight:700;
+}
+ #footer ul.quick-links li a i{
+     margin-right: 5px;
+}
+ #footer ul.quick-links li:hover a i {
+     font-weight: 700;
+     color:;
+}
+ #copyright{
+     padding-top: 30px;
+}
+ .dropdown-menu-right {
+     width: 300px !important;
+}
+ #input{
+     width: 90% !important;
+     margin: auto;
+     margin-bottom: 10px;
+}
+ .carousel-item {
+     height: 100vh;
+     min-height: 300px;
+     background: no-repeat center center scroll;
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
+}
+ .daftar{
+     color: grey;
+}
+ #link-daftar{
+     color:#00AAE5 
+}
+ #fitur-detail{
+     height: 500px;
+}
+
+.footer-inside{
+    margin-top:100px
+    padding-top:10px;
+}
+ @media (max-width:767px){
+     #footer h5 {
+         padding-left: 0;
+         border-left: transparent;
+         padding-bottom: 0px;
+         margin-bottom: 10px;
+    }
+}
+ @media (max-width:575px){
+     .dropdown-menu {
+         width: 100% !important;
+    }
+}

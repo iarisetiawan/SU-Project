@@ -1,0 +1,205 @@
+body{
+background-color: #eff0f1;
+padding-top: 30px;
+padding-bottom: 20px
+
+}
+
+hr{
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+#max{
+  margin-top: 1%;
+  margin-bottom: 0px;
+  color:#808080;
+}
+
+#batas-icon{
+  padding-top: 10px 
+}
+html, body{
+	height: 100%
+}
+#footer{
+	width: 100%;
+	position: relative;
+	padding: 0px 0px;
+	bottom :0;
+}
+
+#new-feed{
+	background-color: white;
+  border-radius: 10px
+
+}
+
+#namalengkap{
+	color:#00AAE5;
+}
+
+#timepost{
+	color:#808080;
+}
+
+#feed-content{
+	text-align: justify;
+  margin-left: 8%;
+  margin-right: 4%;
+  margin-top:0px;
+  padding-top: 0px
+}
+
+#icon-feed{
+	text-align: center;
+	margin-top:0px;
+	margin-bottom: 0px
+}
+
+#icon-feed a{
+	color:#00AAE5;
+	font-size: 20px
+}
+#icon-feed a:hover{
+  opacity: 0.5;
+  text-decoration: none;
+  cursor:pointer;
+}
+#like:hover{
+	color: #e84393
+
+}
+
+.borderClass{
+  border-color: red;
+  border-width:1px;
+  border-style: solid;
+}
+
+#feed-list{
+	margin-bottom: 10px;
+}
+#feeds{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background-color: white;
+	min-height: 300px;
+  border-radius: 10px;
+}
+
+#user-info-feed{
+	margin: 10px 10px 0px 10px;
+
+}
+
+#feed-detail{
+	margin-left: 15px
+}
+
+#padding-0{
+    padding-right:0;
+    padding-left:0;
+}
+
+#friendlist{
+	background-color: green;
+	height: 20vh;
+}
+
+#content{
+  margin-top: 10px;
+}
+
+#no-more{
+  text-align: center;
+  color:#808080;
+}
+#edit-komentar:hover{
+  cursor: pointer;
+}
+
+#new-feed-form{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#btn-new-feed{
+	margin:10px 0px;
+}
+
+#btn-new-feed, #btn-comment{
+  width: 100px
+}
+
+.dropdown-toggle::after {
+    display:none;
+}
+
+#dropdownMenuButton:hover{
+  color:#00AAE5;
+  cursor: pointer;
+}
+
+.modal-header{
+  color:white;
+  background-color: #0984e3;
+}
+
+#link-simpan,#link-batal{
+  color: #00AAE5;
+  margin-left: 3%;
+}
+
+#link-simpan:hover,#link-batal:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.edit-komentar:hover{
+  cursor: pointer;
+}
+
+@-webkit-keyframes placeHolderShimmer {
+          0% {
+            background-position: -468px 0;
+          }
+          100% {
+            background-position: 468px 0;
+          }
+        }
+
+        @keyframes placeHolderShimmer {
+          0% {
+            background-position: -468px 0;
+          }
+          100% {
+            background-position: 468px 0;
+          }
+        }
+
+        .content-placeholder {
+          display: inline-block;
+          -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+          -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+          -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+          -webkit-animation-name: placeHolderShimmer;
+          animation-name: placeHolderShimmer;
+          -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+          background: #f6f7f8;
+          background: -webkit-gradient(linear, left top, right top, color-stop(8%, #eeeeee), color-stop(18%, #dddddd), color-stop(33%, #eeeeee));
+          background: -webkit-linear-gradient(left, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+          background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+          -webkit-background-size: 800px 104px;
+          background-size: 800px 104px;
+          height: inherit;
+          position: relative;
+        }
+
+        

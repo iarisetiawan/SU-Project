@@ -1,0 +1,36 @@
+#komentar-part{
+	margin-top: 20px;
+}
+
+#komentar-field{
+	width: 90%
+}
+
+#komentar-btn{
+	width: 10%;
+	background-color:#273c75;
+	color: white;
+	opacity: 0.5;
+	margin-left:0;
+	font-size: 2em
+}
+
+#komentar-btn:focus{
+	outline: 0
+}
+
+hr {
+  border: 0;
+  display:block;
+  width: 300px;               
+  background-color:grey;
+  height: 1px;
+}
+
+#row-komentar{
+	margin-top: 20px;
+}
+
+#nav-artikel:hover{
+	text-decoration: none;
+}

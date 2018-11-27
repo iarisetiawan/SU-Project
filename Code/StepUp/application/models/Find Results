@@ -1,0 +1,9 @@
+Searching 653 files for "M_Chat"
+
+/Applications/XAMPP/xamppfiles/htdocs/StepUp/application/config/autoload.php:
+  133  |	$autoload['model'] = array('first_model' => 'first');
+  134  */
+  135: $autoload['model'] = array('M_User','M_Auth','M_Kata');
+  136  
+
+1 match in 1 file
