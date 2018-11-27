@@ -24,6 +24,11 @@ class M_User extends CI_Model{
         return $result;
     }
 
+        public function tambahKomentarArtikel($tabelname,$data){
+        $result=$this->db->insert($tabelname,$data);
+        return $result;
+    }
+
     public function authentication($username,$password){
         $this->db->select('*');
         $this->db->from('t_user');
@@ -86,6 +91,34 @@ class M_User extends CI_Model{
   return $query;
  }
 
+
+
+     function fetchArtikelAll($limit, $start)
+ {
+
+  $this->db->select("*");
+  $this->db->from("t_artikel");
+  $this->db->join('t_user', 't_artikel.id_creator = t_user.id_user');
+  $this->db->order_by("id_artikel", "DESC");
+  $this->db->limit($limit, $start);
+  $query = $this->db->get();
+  return $query;
+ }
+      function fetchArtikel($id_user,$limit, $start)
+ {
+
+  $this->db->select("*");
+  $this->db->from("t_artikel");
+  $this->db->join('t_user', 't_artikel.id_creator = t_user.id_user');
+  $this->db->order_by("id_artikel", "DESC");
+  $this->db->where('t_artikel.id_creator',$id_user);
+  $this->db->limit($limit, $start);
+  $query = $this->db->get();
+  return $query;
+ }
+
+
+
      function fetchKomentar($limit, $start,$id_artikel)
 
  {
@@ -99,6 +132,18 @@ class M_User extends CI_Model{
   $query = $this->db->get();
   return $query;
  }
+
+     function readArtikel($id_artikel)
+ {
+
+  $this->db->select("*");
+  $this->db->from("t_artikel");
+  $this->db->join('t_user', 't_artikel.id_creator = t_user.id_user');
+  $this->db->where('id_artikel',$id_artikel);
+  $query = $this->db->get()->row();
+  return $query;
+ }
+
 
 
 
@@ -143,6 +188,55 @@ class M_User extends CI_Model{
         $this->db->set('komentar',$komentar);
         $this->db->where('id_komentar', $id_komentar);
         $this->db->update('t_komentar_berbagi');
+    }
+
+    public function getIdArtikel(){
+      $this->db->select('*');
+      $this->db->from("t_artikel");
+      $this->db->order_by("id_artikel", "DESC");
+      $this->db->limit(1);
+      return $this->db->get()->row();
+    }
+
+    public function buatArtikel($data){
+        $res= $this->db->insert('t_artikel',$data);
+        return $res;
+    }
+
+    public function tambahRead($id_artikel){
+      $this->db->set('readedby', 'readedby+1', FALSE);
+      $this->db->where('id_artikel', $id_artikel);
+      $this->db->update('t_artikel');
+    }
+
+    public function mostRead(){
+        $this->db->select("*");
+      $this->db->from("t_artikel");
+        $this->db->join('t_user', 't_artikel.id_creator = t_user.id_user');
+        $this->db->order_by("readedby", "DESC");
+        $this->db->limit(1);
+        $query = $this->db->get()->row();
+        return $query;
+    }
+
+    public function editArtikelDanFoto($id_artikel,$judul_artikel,$artikel,$fotoartikel){
+        $this->db->set('judul_artikel',$judul_artikel);
+        $this->db->set('artikel',$artikel);
+        $this->db->set('fotoartikel',$fotoartikel);
+        $this->db->where('id_artikel',$id_artikel);
+        return $this->db->update('t_artikel');
+    }
+        public function editArtikel($id_artikel,$judul_artikel,$artikel){
+        $this->db->set('judul_artikel',$judul_artikel);
+        $this->db->set('artikel',$artikel);
+        $this->db->where('id_artikel',$id_artikel);
+        return $this->db->update('t_artikel');
+    }
+
+    public function deleteArtikel($id_artikel){
+        $this->db->select('*');
+        $this->db->where('id_artikel', $id_artikel);
+        return $this->db->delete('t_artikel');
     }
 
     public function GetUserData()
