@@ -35,6 +35,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="<?php echo site_url('C_User/');?>">Timeline</a>
+          <a class="dropdown-item" href="<?php echo site_url('C_User/view_pesan');?>">Pesan</a>
         </div>
       </li>
   <?php } ?>
@@ -104,10 +105,14 @@
                 <div class="row" id="load_data">
                 </div>
                 <div class="row" id="load_data_message">
+
                 </div>
             </div>
           </div>
+
           </div>
+
+
           <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div class="container" style="padding-top: 50px">
             <div class="row" style="text-align: center;">
