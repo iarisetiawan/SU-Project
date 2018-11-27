@@ -39,6 +39,8 @@
         </div>
       </li>
   <?php } ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo site_url('C_User/view_konsultasi');?>">Konsultasi</a>
             </ul>
             <ul class="navbar-nav navbar-right">
                 <li class="nav-item dropdown hidden-md-down">
@@ -102,7 +104,9 @@
     <div class="row">
       <div class="col-lg-1 col-1"></div>
       <div class="col-lg-10 col-10">
+        
                 <div class="row" id="load_data">
+
                 </div>
                 <div class="row" id="load_data_message">
 
