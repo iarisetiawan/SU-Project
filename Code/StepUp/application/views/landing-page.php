@@ -108,6 +108,9 @@
       <li class="nav-item">
         <a class=" nav-link" href="<?php echo site_url('MainController/view_login');?>">Konsultasi</a>
       </li>
+      <li class="nav-item">
+        <a class=" nav-link" href="<?php echo site_url('MainController/view_login');?>">Informasi terkini</a>
+      </li>
     </ul>
     <a href="<?php echo site_url('MainController/view_login');?>"><button type="button" class="btn btn-secondary mr-3 pl-5 pr-5">Masuk</button></a>
     <a href="<?php echo site_url('MainController/view_register');?>"><button type="button" class="btn btn-outline-secondary mr-5 pl-5 pr-5">Daftar</button></a>

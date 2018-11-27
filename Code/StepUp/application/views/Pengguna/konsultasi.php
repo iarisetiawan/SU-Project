@@ -52,6 +52,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo site_url('C_User/view_konsultasi');?>">Konsultasi</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo site_url('C_User/view_informasi');?>">Informasi Terkini</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav navbar-right">
                     <li class="nav-item dropdown hidden-md-down">

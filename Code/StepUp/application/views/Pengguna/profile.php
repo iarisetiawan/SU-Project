@@ -41,6 +41,10 @@
   <?php } ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo site_url('C_User/view_konsultasi');?>">Konsultasi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo site_url('C_User/view_informasi');?>">Informasi Terkini</a>
+                </li>
             </ul>
             <ul class="navbar-nav navbar-right">
                 <li class="nav-item dropdown hidden-md-down">
@@ -104,7 +108,25 @@
     <div class="row">
       <div class="col-lg-1 col-1"></div>
       <div class="col-lg-10 col-10">
-        
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Artikel</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Post</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12 shadow-sm" id="new-feed">
+                        <textarea class="form-control" name="content" id="content" maxlength="150" required placeholder="Apa yang kamu rasakan?"></textarea>
+                        <small><p id="max">Maksimal 150 karakter</p></small>
+                        <input type="submit" id="btn-new-feed" class="btn pull-right btn-primary" name="" value="Bagikan">
+                    </div>
+                </div>
                 <div class="row" id="load_data">
 
                 </div>
