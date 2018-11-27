@@ -86,6 +86,21 @@ class M_User extends CI_Model{
   return $query;
  }
 
+     function fetchKomentar($limit, $start,$id_artikel)
+
+ {
+
+  $this->db->select("*");
+  $this->db->from("t_komentar_artikel");
+  $this->db->join('t_user', 't_komentar_artikel.id_komentator = t_user.id_user');
+  $this->db->where('id_artikel',$id_artikel);
+  $this->db->order_by("t_komentar_artikel.waktu_komentar", "DESC");
+  $this->db->limit($limit, $start);
+  $query = $this->db->get();
+  return $query;
+ }
+
+
 
      function fetchKomentarBerbagi($id_berbagi)
  {
