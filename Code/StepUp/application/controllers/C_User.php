@@ -46,6 +46,21 @@ class C_User extends CI_Controller
       $this->load->view("Pengguna/profile",$data);
   }
 
+    public function view_buatArtikel(){
+      $this->load->view("Pengguna/buatartikel");
+    }
+
+    public function view_readArtikel($id_artikel){
+      $data['artikel'] = $this->M_User->readArtikel($id_artikel);
+      $this->M_User->tambahRead($id_artikel);
+      $this->load->view("Pengguna/read-artikel",$data);
+    }
+
+    public function view_editartikel($id_artikel){
+      $data['artikel'] = $this->M_User->readArtikel($id_artikel);
+      $this->load->view("Pengguna/editartikel",$data);
+    }
+
     public function view_informasi(){
         $data['artikel'] = $this->M_User->mostRead();
         $this->load->view("Pengguna/informasi",$data);
@@ -185,7 +200,83 @@ class C_User extends CI_Controller
         }
         echo $output;
     }
- 
+ public function fetchArtikel($id_user = "all")
+    {
+        $output = '';
+        $count = 0;
+        if($id_user == "all"){
+        $data = $this->M_User->fetchArtikelAll($this->input->post('limit'), $this->input->post('start'));
+        }else{
+        $data = $this->M_User->fetchArtikel($id_user,$this->input->post('limit'), $this->input->post('start'));
+        };
+        if ($data->num_rows() > 0) {
+            foreach ($data->result() as $row) {
+                $count++;
+                $format_posttime = date("j F Y g:i A", strtotime($row->timepost));
+                $content_cut = substr ( $row->artikel , 0, 150 );
+
+                $output .= '
+                 <div class="col-md-12 card shadow-sm" id="artikels">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="popular-img" src="'.base_url().$row->fotoartikel.'" width="100%" height="auto" alt="" style="  margin-left: 0px; padding-left: 0px;">
+                        </div>
+                        <div class="col-md-6">
+                            <div id="popular">
+                                <a id="judul_artikel" style="color:black" href="'.site_url('C_User/view_readArtikel/'.$row->id_artikel).'"><h5 class="card-title mt-4"><b>'.$row->judul_artikel.'</b></h5></a>
+                                <small><p><a href="'.site_url('C_User/viewProfile/'.$row->id_user).'">'.$row->nama_lengkap.'</a> | '.$format_posttime.'';
+                                if($this->session->userdata('id_user') == $row->id_creator){
+                                  $output .= ' | <a href="'.site_url('C_User/view_editartikel/'.$row->id_artikel).'">Edit</a> | <a class="hapus-artikel" href="#" data-id_artikel="'.$row->id_artikel.'" data-title="Delete" data-toggle="modal" data-target="#delete">Hapus</a> ';
+                                }
+                                $output .='
+                                </p></small>
+                                <p class="card-text">'.$content_cut.'...
+                                </p>
+                                <a href="'.site_url('C_User/view_readArtikel/'.$row->id_artikel).'" class="btn btn-primary" style="margin-bottom: 10px">Baca Selengkapnya</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                ';
+            }
+        }
+        echo $output;
+    }
+
+    public function fetchKomentar()
+    {
+        $output = '';
+        $data = $this->M_User->fetchKomentar($this->input->post('limit'), $this->input->post('start'),$this->input->post('id_artikel'));
+        if ($data->num_rows() > 0) {
+            foreach ($data->result() as $row) {
+                $format_posttime = date("j F Y g:i A", strtotime($row->waktu_komentar));
+
+                $output .= '
+                  <div class="col-md-12">
+                  <div class="col-md-12 row">
+                      <b><p><a href="'.site_url('C_User/viewProfile/'.$row->id_komentator).'"><span style="color:#00AAE5">'.$row->nama_lengkap.'</span> </b>| '.$format_posttime.' |';
+
+                                if($this->session->userdata('id_user') == $row->id_komentator){
+                  $output .= '
+                      <a class="hapus-komentar" href="#" data-id_komentar="'.$row->id_komentar.'" data-title="Delete" data-toggle="modal" data-target="#delete-komentar">Hapus</a>';
+
+                    }
+                    $output .= '
+                  </p>
+                  </div>
+                  <div class="col-md-12 row">
+                      <p>'.$row->komentar.'</p>
+                  </div>
+                  <div class="col-md-12 row">
+                      <hr style="width: 100%">
+                  </div>
+                  </div>
+                 ';
+            }
+        }
+        echo $output;
+    }
 
     public function deleteBerbagi()
     {
@@ -222,13 +313,160 @@ class C_User extends CI_Controller
         ));
     }
 
+        public function komentarArtikel()
+    {
+        $komentar    = nl2br($this->input->post('komentar', 'true'));
+        $id_komentator = $this->session->userdata('id_user');
+        $id_artikel = $this->input->post('id_artikel','true');
+        $waktu_komentar   = date('Y-m-d H:i:s');
+        $cek        = $this->M_User->tambahKomentarArtikel('t_komentar_artikel', array(
+            "id_artikel" => $id_artikel,
+            "waktu_komentar" => $waktu_komentar,
+            "id_komentator" => $id_komentator,
+            "komentar" => $komentar
+        ));
+    }
 
     public function editKomentarBerbagi()
     {
         $this->M_User->editKomentarBerbagi($this->input->post("id_komentar"),nl2br($this->input->post("komentar")));
     }
 
-  
+    public function deleteArtikel(){
+      $this->M_User->deleteArtikel($this->input->post("id_artikel"));
+    }
+
+     public function cekTeksArtikel($judul,$isi){
+
+      $data= $this->M_Kata->getKata();
+      $result ="";
+      foreach ($data as $d) {
+        if(stristr($judul,$d['kata'])||stristr($isi,$d['kata']) ){
+          $result = "bahaya";
+          break;
+        }
+        $result = "aman";
+      }
+
+      return $result;
+   }
+
+    public function buatArtikel(){
+        $id_artikel = $this->M_User->getIdArtikel()->id_artikel + 1;
+        $id_creator = $this->session->userdata('id_user');
+        $judul_artikel = $this->input->post('judul_artikel');
+        $artikel = $this->input->post('artikel');
+        $status = $this->cekTeksArtikel($judul_artikel,$artikel);
+        $timepost   = date('Y-m-d H:i:s');
+
+        if($status != "bahaya"){
+        $config['upload_path'] = 'assets/img/informasi/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['overwrite'] = TRUE;
+        $filename = 'fotoArtikel_' . $id_artikel;
+        $config['file_name'] = $filename;
+        $this->upload->initialize($config);
+        if ($this->upload->do_upload('artikel-img'))
+            {
+            $data = $this->upload->data();
+            $fotoartikel = 'assets/img/informasi/' . $data['file_name'];
+            $cek = $this->M_User->buatArtikel(array(
+                    "id_artikel" => $id_artikel,
+                    "id_creator" => $id_creator,
+                    "judul_artikel" => $judul_artikel,
+                    "artikel" => $artikel,
+                    "timepost" => $timepost,
+                    "fotoartikel" => $fotoartikel
+            ));
+            if ($cek >= 1)
+                {
+                ?> <script language="JavaScript">
+                            document.location='<?php
+                                echo site_url('C_User/view_informasi');
+                ?>'</script><?php
+                }
+              else
+                {
+                ?> <script language="JavaScript">alert('Gagal menambahkan user.');
+                            document.location='<?php
+                                echo site_url();
+                ?>'</script><?php
+                }
+            }
+          else
+            {
+            echo $this->upload->display_errors();
+            }
+
+          }
+            else{
+              ?> <script language="JavaScript">alert('Terdapat kata yang dilarang dalam inputan anda, silahkan bersuara dengan baik dan benar.');
+                </script><?php
+            }
+    }
+
+    public function editArtikel($id_artikel){
+        $id_artikel = $id_artikel;
+        $judul_artikel = $this->input->post('judul_artikel');
+        $artikel = $this->input->post('artikel');
+        $status = $this->cekTeksArtikel($judul_artikel,$artikel);
+
+        if($status != "bahaya"){
+
+        $config['upload_path'] = 'assets/img/informasi/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['overwrite'] = TRUE;
+        $filename = 'fotoArtikel_' . $id_artikel;
+        $config['file_name'] = $filename;
+        $this->upload->initialize($config);
+        if($this->input->post('artikel-img')){
+          if ($this->upload->do_upload('artikel-img'))
+            {
+            $data = $this->upload->data();
+            $fotoartikel = 'assets/img/informasi/' . $data['file_name'];
+            $cek = $this->M_User->editArtikelDanFoto($id_artikel,$judul_artikel,$artikel,$fotoartikel);
+            if ($cek >= 1)
+                {
+                ?> <script language="JavaScript">
+                            document.location='<?php
+                                echo site_url('C_User/view_informasi');
+                ?>'</script><?php
+                }
+              else
+                {
+                ?> <script language="JavaScript">alert('Gagal menambahkan user.');
+                            document.location='<?php
+                                echo site_url();
+                ?>'</script><?php
+                }
+            }
+          else
+            {
+            echo $this->upload->display_errors();
+            }
+        }else{
+
+          $cek = $this->M_User->editArtikel($id_artikel,$judul_artikel,$artikel);
+            if ($cek >= 1)
+                {
+                ?> <script language="JavaScript">
+                            document.location='<?php
+                                echo site_url('C_User/view_informasi');
+                ?>'</script><?php
+                }
+              else
+                {
+                ?> <script language="JavaScript">alert('Gagal menambahkan user.');
+                            document.location='<?php
+                                echo site_url();
+                ?>'</script><?php
+                }
+
+        }}else{
+           ?> <script language="JavaScript">alert('Terdapat kata yang dilarang dalam inputan anda, silahkan bersuara dengan baik dan benar.');</script><?php
+        }
+
+    }    
     public function logout()
     {
         $this->session->sess_destroy();
