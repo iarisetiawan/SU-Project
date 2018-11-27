@@ -17,6 +17,30 @@ class C_User extends CI_Controller
         $this->load->view("Pengguna/berbagi");
     }
 
+    public function view_konsultasi()
+  {
+  $list = $this->M_User->penggunaList();
+  $userList = [];
+  foreach($list as $u)
+    {
+    $userList[] = [ 'id_user' => $this->M_Auth->Encryptor('encrypt', $u['id_user']) , 'nama_lengkap' => $u['nama_lengkap'], 'fotoprofile' => $u['fotoprofile']];
+    }
+
+  $data['userList'] = $userList;
+  $this->parser->parse('Pengguna/konsultasi', $data);
+  }
+
+  public function view_pesan(){
+    $list = $this->M_User->antarPenggunaList();
+  $userList = [];
+  foreach($list as $u)
+    {
+    $userList[] = [ 'id_user' => $this->M_Auth->Encryptor('encrypt', $u['id_user']) , 'nama_lengkap' => $u['nama_lengkap'], 'fotoprofile' => $u['fotoprofile']];
+    }
+
+  $data['userList'] = $userList;
+  $this->parser->parse('Pengguna/pesan', $data);
+  }
   public function viewProfile($id_user){
       $data['userdata'] = $this->M_User->GetProfileUser($id_user);
       $this->load->view("Pengguna/profile",$data);
@@ -31,6 +55,8 @@ class C_User extends CI_Controller
             "content" => $content,
             "timepost" => $timepost
         ));
+        
+
     }
     
     public function fetchBerbagi($id_user = "all")
@@ -46,7 +72,7 @@ class C_User extends CI_Controller
         if ($data->num_rows() > 0) {
             foreach ($data->result() as $row) {
                 $count++;
-            	$format_posttime = date("j F Y g:i A", strtotime($row->timepost));
+              $format_posttime = date("j F Y g:i A", strtotime($row->timepost));
                 $list_komentar = $this->M_User->fetchKomentarBerbagi($row->id_berbagi); 
                 $output .= '
                     <div class="col-md-12 shadow-sm" id="feeds">
@@ -155,40 +181,6 @@ class C_User extends CI_Controller
         echo $output;
     }
 
-    public function fetchKomentar()
-    {
-        $output = '';
-        $data = $this->M_User->fetchKomentar($this->input->post('limit'), $this->input->post('start'),$this->input->post('id_artikel'));
-        if ($data->num_rows() > 0) {
-            foreach ($data->result() as $row) {
-                $format_posttime = date("j F Y g:i A", strtotime($row->waktu_komentar));
-
-                $output .= '
-                  <div class="col-md-12">
-                  <div class="col-md-12 row">
-                      <b><p><a href="'.site_url('C_User/viewProfile/'.$row->id_komentator).'"><span style="color:#00AAE5">'.$row->nama_lengkap.'</span> </b>| '.$format_posttime.' |';
-
-                                if($this->session->userdata('id_user') == $row->id_komentator){
-                  $output .= '
-                      <a class="hapus-komentar" href="#" data-id_komentar="'.$row->id_komentar.'" data-title="Delete" data-toggle="modal" data-target="#delete-komentar">Hapus</a>';
-
-                    }
-                    $output .= '
-                  </p>
-                  </div>
-                  <div class="col-md-12 row">
-                      <p>'.$row->komentar.'</p>
-                  </div>
-                  <div class="col-md-12 row">
-                      <hr style="width: 100%">
-                  </div>
-                  </div>
-                 ';
-            }
-        }
-        echo $output;
-    }
-
     public function deleteBerbagi()
     {
         $this->M_User->deleteBerbagi($this->input->post("id_berbagi"));
@@ -224,12 +216,7 @@ class C_User extends CI_Controller
         ));
     }
 
-    public function editKomentarBerbagi()
-    {
-        $this->M_User->editKomentarBerbagi($this->input->post("id_komentar"),nl2br($this->input->post("komentar")));
-    }
-
-   
+        
     public function logout()
     {
         $this->session->sess_destroy();
