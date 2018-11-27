@@ -36,6 +36,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="<?php echo site_url('C_User/');?>">Timeline</a>
+                            <a class="dropdown-item" href="<?php echo site_url('C_User/view_pesan');?>">Pesan</a>
                         </div>
                     </li>
                     <?php } ?>
