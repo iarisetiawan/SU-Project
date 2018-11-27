@@ -45,6 +45,11 @@ class C_User extends CI_Controller
       $data['userdata'] = $this->M_User->GetProfileUser($id_user);
       $this->load->view("Pengguna/profile",$data);
   }
+
+    public function view_informasi(){
+        $data['artikel'] = $this->M_User->mostRead();
+        $this->load->view("Pengguna/informasi",$data);
+    }
     public function berbagi()
     {
         $content    = nl2br($this->input->post('content', 'true'));
@@ -180,6 +185,7 @@ class C_User extends CI_Controller
         }
         echo $output;
     }
+ 
 
     public function deleteBerbagi()
     {
@@ -216,7 +222,13 @@ class C_User extends CI_Controller
         ));
     }
 
-        
+
+    public function editKomentarBerbagi()
+    {
+        $this->M_User->editKomentarBerbagi($this->input->post("id_komentar"),nl2br($this->input->post("komentar")));
+    }
+
+  
     public function logout()
     {
         $this->session->sess_destroy();
