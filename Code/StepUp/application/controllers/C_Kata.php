@@ -13,19 +13,34 @@ class C_Kata extends CI_Controller
     }
 
    public function cekTeks(){
-   		$content = $this->input->post('content');
+      $content = $this->input->post('content');
 
-   		$data= $this->M_Kata->getKata();
-   		$result ="";
-   		foreach ($data as $d) {
-   			if(stristr($content,$d['kata'])){
-   				$result = "bahaya";
-   				break;
-   			}
-   			$result = "aman";
-   		}
+      $data= $this->M_Kata->getKata();
+      $result ="";
+      foreach ($data as $d) {
+        if(stristr($content,$d['kata'])){
+          $result = "bahaya";
+          break;
+        }
+        $result = "aman";
+      }
 
-   		echo json_encode($result);
+      echo json_encode($result);
+   }
+
+      public function cekTeksArtkel($judul,$isi){
+
+      $data= $this->M_Kata->getKata();
+      $result ="";
+      foreach ($data as $d) {
+        if(stristr($judul,$d['kata'])||stristr($isi,$d['kata']) ){
+          $result = "bahaya";
+          break;
+        }
+        $result = "aman";
+      }
+
+      return $result;
    }
 }
  
